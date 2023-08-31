@@ -1,0 +1,54 @@
+Follow the below steps to install Quantum ESPRESSO in a single node and cluster VM’s.
+
+ 
+1.Set the below environment variables:
+
+export PATH=$PATH:/…/openmpi-4.1.0/bin
+
+export LD_LIBRARY_PATH=/…/openmpi-4.1.0/lib
+
+export CC=gcc
+
+export CXX=g++
+
+export FC=gfortran
+
+export FCFLAGS=-m64
+
+export F77=gfortran
+
+
+2.Download the source code from the below link.
+
+ https://www.quantum-espresso.org/download-page/
+
+ 
+
+3.Download the prerequisite libraries from the links provided below :
+
+i.  Blas : http://www.netlib.org/blas/
+ii. Lapack : https://github.com/Reference-LAPACK/lapack/archive/refs/tags/
+iii.Fftw : https://fftw.org/pub/fftw/
+
+ 
+
+4.Unzip the downloaded packages and install the libraries as below.
+
+i.tar xvf blas-3.11.0.tgz
+  make all
+  mv blas_LINUX.a libblas.a / cp blas_LINUX.a libblas.a
+  sudo cp libblas.a /usr/local/lib/
+
+ii.tar xvf v3.11.tar.gz
+   cp make.inc.example make.inc
+   make all
+   sudo cp liblapack.a /usr/local/lib/
+
+iii.tar xvf fftw-3.3.10.tar.gz
+    ./configure
+    make all
+    sudo make install
+
+iv.Install the QE Source code
+   ./configure
+   make all
