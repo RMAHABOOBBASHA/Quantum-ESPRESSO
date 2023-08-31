@@ -1,0 +1,46 @@
+1.To execute Quantum ESPRESSO simulation on Standalone VM use below commands:
+
+export PATH=$PATH:/…/openmpi-4.1.0/bin/
+
+export LD_LIBRARY_PATH=/…/openmpi-4.1.0/lib
+
+mpirun -np xx --use-hwthread-cpus --report-bindings --bind-to core --map-by core /path_to-QE/bin/pw.x -in aaa.in > aaa.out
+
+
+2.To execute Quantum ESPRESSO simulation on Multi node (Cluster) use the below slurm script:
+
+#!/bin/bash
+
+#SBATCH --job-name=QE
+
+#SBATCH --partition=hpc
+
+#SBATCH --nodes=a
+
+#SBATCH --ntasks-per-node=b
+
+#SBATCH --ntasks=a*b
+
+export PATH=$PATH:/…/openmpi-4.1.0/bin/
+
+export LD_LIBRARY_PATH=/…/openmpi-4.1.0/lib
+
+export CC=gcc
+
+export CXX=g++
+
+export FC=gfortran
+
+export FCFLAGS=-m64
+
+export F77=gfortran
+
+mpirun -np xx --use-hwthread-cpus --report-bindings --bind-to core --map-by core /path_to-QE/bin/pw.x -in aaa.in > aaa.out
+
+Note:
+
+#SBATCH --nodes=a (No. of nodes)
+
+#SBATCH --ntasks-per-node=b (No. of cores per VM configuration)
+
+#SBATCH --ntasks=xx=a*b
